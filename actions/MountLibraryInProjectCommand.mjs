@@ -8,7 +8,7 @@ export class MountLibraryInProjectCommand extends Action {
 
   async execute(options) {
     print('Mounting library in test project...')
-    withPackageJson(packageJson => {
+    await withPackageJson(packageJson => {
       packageJson.devDependencies[packageJson.name.split('/').at(-1)] = 'file:.'
     })
     await execute('npm install')

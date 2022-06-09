@@ -1,6 +1,6 @@
 {
   "name": "@padcom/create-vue2-lib",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "NPM project generator for Vue.js 2.x library",
   "keywords": [
     "npm"

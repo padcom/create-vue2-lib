@@ -17,11 +17,12 @@ export class CreateApplicationFilesCommand extends Action {
     await copyFile('index.html')
     await copyFile('shims-vue.d.ts')
     await copyFile('vite.config.ts')
-    withPackageJson(packageJson => {
+    await withPackageJson(packageJson => {
       packageJson.main = `dist/${packageJson.name.split('/').at(-1)}.umd.js`
       packageJson.files = [ 'dist' ]
-      if (options.gitRepoInitialized) {
+      if (options.gitRepoInitialized && packageJson.author) {
         const [ , , user, host ] = /(.+) \<(.+)\@(.+)>/.exec(packageJson.author)
+        // if (user && host) {
         packageJson.repository = {
           type: 'git',
           url: `http://github.com/${user}/${packageJson.name}`,
@@ -30,6 +31,7 @@ export class CreateApplicationFilesCommand extends Action {
           email: `${user}@${host}`,
           url: `http://github.com/${user}/${packageJson.name}`,
         }
+        // }
       }
     })
     println('ok')

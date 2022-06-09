@@ -12,7 +12,7 @@ export class InitNpmProjectCommand extends Action {
     await setNpmRc('engine-strict', true)
     const nodeVersion = await execute('node --version')
     const npmVersion = await execute('npm --version')
-    withPackageJson(packageJson => {
+    await withPackageJson(packageJson => {
       packageJson.engines = {
         node: `>=${nodeVersion.trim()}`,
         npm: `>=${npmVersion.trim()}`,
