@@ -22,16 +22,16 @@ export class CreateApplicationFilesCommand extends Action {
       packageJson.files = [ 'dist' ]
       if (options.gitRepoInitialized && packageJson.author) {
         const [ , , user, host ] = /(.+) \<(.+)\@(.+)>/.exec(packageJson.author)
-        // if (user && host) {
-        packageJson.repository = {
-          type: 'git',
-          url: `http://github.com/${user}/${packageJson.name}`,
+        if (user && host) {
+          packageJson.repository = {
+            type: 'git',
+            url: `http://github.com/${user}/${packageJson.name}`,
+          }
+          packageJson.bugs = {
+            email: `${user}@${host}`,
+            url: `http://github.com/${user}/${packageJson.name}`,
+          }
         }
-        packageJson.bugs = {
-          email: `${user}@${host}`,
-          url: `http://github.com/${user}/${packageJson.name}`,
-        }
-        // }
       }
     })
     println('ok')

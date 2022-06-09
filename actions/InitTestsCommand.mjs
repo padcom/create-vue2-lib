@@ -30,6 +30,7 @@ export class InitTestsCommand extends Action {
     await withPackageJson(packageJson => {
       packageJson.scripts['test'] = 'jest --coverage'
       packageJson.scripts['test:watch'] = 'jest --watch --coverage'
+      packageJson.scripts['prepublishOnly'] = 'npm install && npm test && npm run build'
     })
     println('ok')
 

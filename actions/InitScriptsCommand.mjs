@@ -14,11 +14,7 @@ export class InitScriptsCommand extends Action {
       packageJson.scripts['start'] = `npm run build && concurrently 'npm run build -- -w' 'npm run dev'`
       packageJson.scripts['dev'] = 'vite'
       packageJson.scripts['build'] = 'vite build'
-      if (options.initTests) {
-        packageJson.scripts['prepublishOnly'] = 'npm install && npm test && npm run build'
-      } else {
-        packageJson.scripts['prepublishOnly'] = 'npm install && npm run build'
-      }
+      packageJson.scripts['prepublishOnly'] = 'npm install && npm run build'
     })
     println('ok')
 
