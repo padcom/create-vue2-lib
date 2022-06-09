@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Hello from './components/Hello.vue'
+import { Hello } from '@@name@@'
 
 export default Vue.extend({
   components: {

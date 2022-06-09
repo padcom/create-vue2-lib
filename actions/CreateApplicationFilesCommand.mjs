@@ -1,5 +1,5 @@
 import { Action } from './Action.mjs'
-import { print, println, copyFile, execute, mkdir, withPackageJson } from '../utils.mjs'
+import { print, println, copyFile, copyTemplate, mkdir, withPackageJson } from '../utils.mjs'
 
 export class CreateApplicationFilesCommand extends Action {
   constructor() {
@@ -11,7 +11,10 @@ export class CreateApplicationFilesCommand extends Action {
     await mkdir('lib')
     await mkdir('lib/components')
     await copyFile('main.ts', 'lib/main.ts')
-    await copyFile('App.vue', 'lib/App.vue')
+    await withPackageJson(async (packageJson) => {
+      const name = packageJson.name.split('/').at(-1)
+      await copyTemplate('App.vue', 'lib/App.vue', { name })
+    })
     await copyFile('Hello.vue', 'lib/components/Hello.vue')
     await copyFile('index.ts')
     await copyFile('index.html')

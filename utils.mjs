@@ -28,6 +28,14 @@ export async function copyFile(filename, destination = filename) {
   writeFileSync(`./${destination}`, readFileSync(`${dirname}/templates/${filename}`))
 }
 
+export async function copyTemplate(filename, destination = filename, context = {}) {
+  let content = readFileSync(`${dirname}/templates/${filename}`).toString()
+  Object.entries(context).forEach(([ name, value ]) => {
+    content = content.replaceAll(`@@${name}@@`, value)
+  })
+  writeFileSync(`./${destination}`, content)
+}
+
 export async function copyTemplateFile(filename, context = {}, destination = filename) {
   let source = readFileSync(`${dirname}/templates/${filename}`).toString()
   for (const [ name, value ] of Object.entries(context)) {
