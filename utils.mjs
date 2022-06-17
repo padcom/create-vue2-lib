@@ -19,9 +19,14 @@ export async function setNpmRc(option, value) {
 }
 
 export async function withPackageJson(callback) {
-  const packageJson = JSON.parse(readFileSync('./package.json'))
+  let filename = './package.json'
+  if (arguments.length === 2) {
+    filename = arguments[0]
+    callback = arguments[1]
+  }
+  const packageJson = JSON.parse(readFileSync(filename))
   await callback(packageJson)
-  writeFileSync('package.json', JSON.stringify(packageJson, null, 2))
+  writeFileSync(filename, JSON.stringify(packageJson, null, 2))
 }
 
 export async function copyFile(filename, destination = filename) {
@@ -29,19 +34,15 @@ export async function copyFile(filename, destination = filename) {
 }
 
 export async function copyTemplate(filename, destination = filename, context = {}) {
+  if (arguments.length === 2) {
+    context = destination
+    destination = filename
+  }
   let content = readFileSync(`${dirname}/templates/${filename}`).toString()
   Object.entries(context).forEach(([ name, value ]) => {
     content = content.replaceAll(`@@${name}@@`, value)
   })
   writeFileSync(`./${destination}`, content)
-}
-
-export async function copyTemplateFile(filename, context = {}, destination = filename) {
-  let source = readFileSync(`${dirname}/templates/${filename}`).toString()
-  for (const [ name, value ] of Object.entries(context)) {
-    source = source.replaceAll(`{{${name}}}`, value)
-  }
-  writeFileSync(`./${destination}`, source)
 }
 
 export function print(msg) {

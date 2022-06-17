@@ -13,12 +13,18 @@ export class InstallProjectDependenciesCommand extends Action {
     ]
     const devDependencies = [
       '@types/node',
+      '@vue/test-utils@1.3.0',
+      'c8@7.11.3',
       'concurrently',
+      'jsdom',
       'sass',
+      'rimraf',
+      'unplugin-vue2-script-setup',
       'typescript',
       'vite',
       'vite-plugin-vue2',
-      'vue-tsc',
+      'vitest',
+      'vue-template-compiler',
     ]
     await execute(`npm install --save-peer ${peerDependencies.join(' ')}`)
     await execute(`npm install --save-dev ${devDependencies.join(' ')}`)

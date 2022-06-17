@@ -6,9 +6,9 @@ import { InitGitRepositoryCommand } from './actions/InitGitRepositoryCommand.mjs
 import { InitNpmProjectCommand } from './actions/InitNpmProjectCommand.mjs'
 import { InitScriptsCommand } from './actions/InitScriptsCommand.mjs'
 import { InstallProjectDependenciesCommand } from './actions/InstallProjectDependenciesCommand.mjs'
-import { MountLibraryInProjectCommand } from './actions/MountLibraryInProjectCommand.mjs'
-import { InitTypeScriptCommand } from './actions/InitTypeScriptCommand.mjs'
-import { CreateApplicationFilesCommand } from './actions/CreateApplicationFilesCommand.mjs'
+import { MountLibraryInExampleProjectCommand } from './actions/MountLibraryInExampleProjectCommand.mjs'
+import { CreateLibraryFilesCommand } from './actions/CreateLibraryFilesCommand.mjs'
+import { CreateExampleApplicationFilesCommand } from './actions/CreateExampleApplicationFilesCommand.mjs'
 import { InitEslintCommand } from './actions/InitEslintCommand.mjs'
 import { InitTestsCommand } from './actions/InitTestsCommand.mjs'
 import { ShouldCreateExampleTestsQuestion } from './actions/ShouldCreateExampleTestsQuestion.mjs'
@@ -29,12 +29,12 @@ const actions = [
   new InitNpmProjectCommand(),
   new InitScriptsCommand(),
   new InstallProjectDependenciesCommand(),
-  new MountLibraryInProjectCommand(),
-  new InitTypeScriptCommand(),
-  new CreateApplicationFilesCommand(),
+  new CreateLibraryFilesCommand(),
+  new CreateExampleApplicationFilesCommand(),
+  new MountLibraryInExampleProjectCommand(),
   new Question('initEslint', `Would you like to install linting support using ${chalk.yellow('eslint')}?`),
   new InitEslintCommand(),
-  new Question('initTests', `Would you like to install testing support using ${chalk.yellow('jest')}?`),
+  new Question('initTests', `Would you like to install testing support using ${chalk.yellow('vitest')}?`),
   new InitTestsCommand(),
   new ShouldCreateExampleTestsQuestion('createExampleTest', 'Would you like me to create an example test for you?'),
   new CreateExampleTestFilesCommand(),

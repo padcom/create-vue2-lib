@@ -1,20 +1,23 @@
-import path from 'path'
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import { createVuePlugin } from 'vite-plugin-vue2'
 
-import packageJson from './package.json'
-
-const name = packageJson.name.split('/').at(-1)
+import { name } from './package.json'
 
 export default defineConfig({
+  plugins: [
+    createVuePlugin(),
+  ],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'index.ts'),
-      name,
+      entry: resolve(__dirname, 'lib/index.js'),
+      name: name.split('/').at(-1),
       fileName: format => `${name}.${format}.js`,
     },
     rollupOptions: {
-      external: [ 'vue' ],
+      external: [
+        'vue',
+      ],
       output: {
         globals: {
           vue: 'Vue',
@@ -22,10 +25,4 @@ export default defineConfig({
       },
     },
   },
-  server: {
-    port: 3000,
-  },
-  plugins: [
-    createVuePlugin(),
-  ],
 })

@@ -1,4 +1,4 @@
-# {{name}} project
+# @@name@@ project
 
 ## Starting the project
 

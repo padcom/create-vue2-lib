@@ -1,27 +1,21 @@
 module.exports = {
-  'env': {
-    'es2021': true
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
   },
-  'extends': [
+  extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:vue/essential',
   ],
-  'parser': '@typescript-eslint/parser',
-  'parserOptions': {
-    'ecmaVersion': 'latest',
-    'sourceType': 'module'
+  parserOptions: {
+    ecmaVersion: 13,
+    sourceType: 'module',
   },
-  'plugins': [
-    '@typescript-eslint'
+  plugins: [
+    'vue',
   ],
-  'ignorePatterns': [
-    '**/*.js'
-  ],
-  'rules': {
-    '@typescript-eslint/ban-ts-comment': [ 'off' ],
-    '@typescript-eslint/no-explicit-any': [ 'off' ],
-    '@typescript-eslint/space-before-blocks': [ 'error' ],
-    '@typescript-eslint/type-annotation-spacing': [ 'error' ],
+  rules: {
     'array-element-newline': [ 'error', 'consistent' ],
     'array-bracket-newline': [ 'error', 'consistent' ],
     'array-bracket-spacing': [ 'error', 'always' ],
@@ -39,15 +33,16 @@ module.exports = {
     'no-empty': [ 'warn' ],
     'no-whitespace-before-property': [ 'error' ],
     'object-curly-newline': [ 'error', { consistent: true } ],
-    'object-curly-spacing': [ 'error', 'always'],
+    'object-curly-spacing': [ 'error', 'always' ],
     'quotes': [ 'error', 'single' ],
     'semi': [ 'error', 'never' ],
-    'semi-spacing': [ 'error', { before: false, after: true }],
+    'semi-spacing': [ 'error', { before: false, after: true } ],
     'space-before-blocks': [ 'error', { functions: 'always', keywords: 'always', classes: 'always' } ],
     'space-before-function-paren': [ 'error', { anonymous: 'always', named: 'never', asyncArrow: 'always' } ],
     'space-in-parens': [ 'error', 'never' ],
     'space-infix-ops': [ 'error' ],
     'space-unary-ops': [ 'error' ],
     'switch-colon-spacing': [ 'error' ],
-  }
+    'vue/multi-word-component-names': [ 'off' ],
+  },
 }

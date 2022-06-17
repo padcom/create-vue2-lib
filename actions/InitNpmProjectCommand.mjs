@@ -1,5 +1,5 @@
 import { Action } from './Action.mjs'
-import { print, println, execute, withPackageJson, setNpmRc } from '../utils.mjs'
+import { print, println, execute, withPackageJson, setNpmRc, mkdir, copyTemplate } from '../utils.mjs'
 
 export class InitNpmProjectCommand extends Action {
   constructor() {
@@ -12,12 +12,11 @@ export class InitNpmProjectCommand extends Action {
     await setNpmRc('engine-strict', true)
     const nodeVersion = await execute('node --version')
     const npmVersion = await execute('npm --version')
-    await withPackageJson(packageJson => {
+    await withPackageJson(async (packageJson) => {
       packageJson.engines = {
         node: `>=${nodeVersion.trim()}`,
         npm: `>=${npmVersion.trim()}`,
       }
-      packageJson.main = packageJson.name.split('/').at(-1)
     })
     println('ok')
 

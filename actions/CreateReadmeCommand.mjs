@@ -1,5 +1,5 @@
 import { Action } from './Action.mjs'
-import { print, println, withPackageJson, copyTemplateFile } from '../utils.mjs'
+import { print, println, withPackageJson, copyTemplate } from '../utils.mjs'
 
 export class CreateReadmeCommand extends Action {
   constructor() {
@@ -13,7 +13,7 @@ export class CreateReadmeCommand extends Action {
   async execute(options) {
     print('Creating README.md...')
     await withPackageJson(async (packageJson) => {
-      await copyTemplateFile('README.md', { name: packageJson.name })
+      await copyTemplate('README.md', { name: packageJson.name })
     })
     println('ok')
 

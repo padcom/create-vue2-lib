@@ -12,8 +12,7 @@ export class CreateExampleTestFilesCommand extends Action {
 
   async execute(options) {
     print('Creating example test...')
-    await copyFile('example.test.ts', 'lib/example.test.ts')
-    await copyFile('Hello.test.ts', 'lib/components/Hello.test.ts')
+    await copyFile('Example.test.js', 'lib/components/Example.test.js')
     println('ok')
 
     return { exampleTestsCreated: true }

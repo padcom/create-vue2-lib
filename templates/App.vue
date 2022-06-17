@@ -1,14 +1,14 @@
 <template>
-  <Hello name="James" />
+  <Example name="James" />
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { Hello } from '@@name@@'
+import { Example } from '@@name@@'
 
 export default Vue.extend({
   components: {
-    Hello,
+    Example,
   },
 })
 </script>

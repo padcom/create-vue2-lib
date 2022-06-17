@@ -13,23 +13,21 @@ export class InitTestsCommand extends Action {
   async execute(options) {
     print('Installing test dependencies...')
     const devDependencies = [
-      'jest',
-      '@types/jest',
-      'ts-jest',
       '@vue/test-utils@1',
-      '@vue/vue2-jest',
       'jsdom',
-      'jsdom-global',
+      'c8',
+      'unplugin-vue2-script-setup',
+      'vitest'
     ]
     await execute(`npm install --save-dev jest ${devDependencies.join(' ')}`)
     println('ok')
 
     print('Initializint test subsystem (Jest)...')
-    await copyFile('jest.config.js')
-    await copyFile('jestSetup.js')
+    await copyFile('vitest.config.js')
+    await copyFile('vitest.setup.js')
     await withPackageJson(packageJson => {
-      packageJson.scripts['test'] = 'jest --coverage'
-      packageJson.scripts['test:watch'] = 'jest --watch --coverage'
+      packageJson.scripts['test'] = 'vitest run --coverage'
+      packageJson.scripts['test:watch'] = 'vitest --watch --coverage'
       packageJson.scripts['prepublishOnly'] = 'npm install && npm test && npm run build'
     })
     println('ok')

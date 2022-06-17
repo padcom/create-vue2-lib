@@ -11,10 +11,12 @@ export class InitScriptsCommand extends Action {
     await withPackageJson(packageJson => {
       packageJson.version = '0.0.0'
       packageJson.main = 'start.ts'
-      packageJson.scripts['start'] = `npm run build && concurrently 'npm run build -- -w' 'npm run dev'`
-      packageJson.scripts['dev'] = 'vite'
+      packageJson.scripts['start'] = `npm run build -- --mode=development && concurrently 'npm run build:watch' 'npm --prefix example start'`
+      packageJson.scripts['clean'] = 'rimraf coverage dist && npm --prefix example run clean'
       packageJson.scripts['build'] = 'vite build'
+      packageJson.scripts['build:watch'] = 'vite build -w --mode=development'
       packageJson.scripts['prepublishOnly'] = 'npm install && npm run build'
+      packageJson.scripts['postinstall'] = 'npm --prefix example install'
     })
     println('ok')
 

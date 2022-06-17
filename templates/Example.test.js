@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils'
 
-import Hello from './Hello.vue'
+import Example from './Example.vue'
 
-describe('Hello component', () => {
+describe('Example component', () => {
   it('will mount', () => {
-    const wrapper = shallowMount(Hello)
+    const wrapper = shallowMount(Example)
     expect(wrapper.text()).toContain('Hello, John!')
     wrapper.destroy()
   })

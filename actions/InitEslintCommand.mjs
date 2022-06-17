@@ -12,15 +12,12 @@ export class InitEslintCommand extends Action {
 
   async execute(options) {
     print('Installing eslint dependencies...')
-    await execute('npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin')
+    await execute('npm install --save-dev eslint eslint-plugin-vue vite-plugin-eslint')
     println('ok')
 
     print('Initializing eslint...')
     await copyFile('.eslintrc.js')
-    await withPackageJson(packageJson => {
-      packageJson.scripts['lint'] = 'eslint **/*.ts'
-      packageJson.scripts['lint:fix'] = 'eslint **/*.ts --fix'
-    })
+    await copyFile('vite.config.js-with_eslint', 'vite.config.js')
     println('ok')
 
     return { eslintInitialized: true }

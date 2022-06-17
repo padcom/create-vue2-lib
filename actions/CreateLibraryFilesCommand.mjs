@@ -1,27 +1,30 @@
 import { Action } from './Action.mjs'
 import { print, println, copyFile, copyTemplate, mkdir, withPackageJson } from '../utils.mjs'
 
-export class CreateApplicationFilesCommand extends Action {
+export class CreateLibraryFilesCommand extends Action {
   constructor() {
-    super('create-application-files-command')
+    super('create-library-files-command')
   }
 
   async execute(options) {
-    print('Creating main.ts...')
+    print('Creating library files...')
     await mkdir('lib')
+    await copyFile('vite.config.js')
+    await copyFile('vitest.config.js')
+    await copyFile('vitest.setup.js')
+    await copyFile('index.js', 'lib/index.js')
     await mkdir('lib/components')
-    await copyFile('main.ts', 'lib/main.ts')
-    await withPackageJson(async (packageJson) => {
-      const name = packageJson.name.split('/').at(-1)
-      await copyTemplate('App.vue', 'lib/App.vue', { name })
-    })
-    await copyFile('Hello.vue', 'lib/components/Hello.vue')
-    await copyFile('index.ts')
-    await copyFile('index.html')
-    await copyFile('shims-vue.d.ts')
-    await copyFile('vite.config.ts')
+    await copyFile('Example.vue', 'lib/components/Example.vue')
     await withPackageJson(packageJson => {
-      packageJson.main = `dist/${packageJson.name.split('/').at(-1)}.umd.js`
+      const name = packageJson.name.split('/').at(-1)
+      packageJson.main = `dist/${name}.umd.js`
+      packageJson.module = `dist/${name}.es.js`
+      packageJson.exports = {
+        '.': {
+          require: `dist/${name}.umd.js`,
+          import: `dist/${name}.es.js`,
+        }
+      }
       packageJson.files = [ 'dist' ]
       if (options.gitRepoInitialized && packageJson.author) {
         const [ , , user, host ] = /(.+) \<(.+)\@(.+)>/.exec(packageJson.author)
@@ -37,8 +40,9 @@ export class CreateApplicationFilesCommand extends Action {
         }
       }
     })
+
     println('ok')
 
-    return { applicationFilesInitialized: true }
+    return { libraryFilesInitialized: true }
   }
 }
