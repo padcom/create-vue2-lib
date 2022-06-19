@@ -21,8 +21,8 @@ export class CreateLibraryFilesCommand extends Action {
       packageJson.module = `dist/${name}.es.js`
       packageJson.exports = {
         '.': {
-          require: `dist/${name}.umd.js`,
-          import: `dist/${name}.es.js`,
+          require: `./dist/${name}.umd.js`,
+          import: `./dist/${name}.es.js`,
         }
       }
       packageJson.files = [ 'dist' ]
