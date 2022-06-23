@@ -17,8 +17,8 @@ export class CreateLibraryFilesCommand extends Action {
     await copyFile('Example.vue', 'lib/components/Example.vue')
     await withPackageJson(packageJson => {
       const name = packageJson.name.split('/').at(-1)
-      packageJson.main = `dist/${name}.umd.js`
-      packageJson.module = `dist/${name}.es.js`
+      packageJson.main = `./dist/${name}.umd.js`
+      packageJson.module = `./dist/${name}.es.js`
       packageJson.exports = {
         '.': {
           require: `./dist/${name}.umd.js`,
@@ -28,14 +28,15 @@ export class CreateLibraryFilesCommand extends Action {
       packageJson.files = [ 'dist' ]
       if (options.gitRepoInitialized && packageJson.author) {
         const [ , , user, host ] = /(.+) \<(.+)\@(.+)>/.exec(packageJson.author)
+        const name = packageJson.name.split('/').at(-1)
         if (user && host) {
           packageJson.repository = {
             type: 'git',
-            url: `http://github.com/${user}/${packageJson.name}`,
+            url: `http://github.com/${user}/${name}`,
           }
           packageJson.bugs = {
             email: `${user}@${host}`,
-            url: `http://github.com/${user}/${packageJson.name}`,
+            url: `http://github.com/${user}/${name}`,
           }
         }
       }
